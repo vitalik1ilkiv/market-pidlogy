@@ -1,0 +1,14 @@
+@keyframes shine {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
+}
+
+@keyframes spinner-rotate {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

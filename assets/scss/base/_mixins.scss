@@ -1,0 +1,103 @@
+@use "variables" as *;
+
+// hover
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// resize mixin for value
+// Example:
+// margin: 0 auto res(31, 64) - margin: 0 auto calc(64px + (31 - 64) * ((100vw - 414px) / (1920 - 414)))
+@function res(
+  $minValue,
+  $maxValue,
+  $symbol: plus,
+  $minWidth: 430,
+  $maxWidth: 1920
+) {
+  @if $symbol == plus {
+    @return calc(
+      #{$minValue}px + (#{$maxValue} - #{$minValue}) *
+        ((100vw - #{$minWidth}px) / (#{$maxWidth} - #{$minWidth}))
+    );
+  } @else {
+    @return calc(
+      -1 * (#{$minValue}px + (#{$maxValue} - #{$minValue}) *
+            ((100vw - #{$minWidth}px) / (#{$maxWidth} - #{$minWidth})))
+    );
+  }
+}
+
+// Underline links
+
+@mixin anim-underline-show($line-color: currentColor) {
+  background: linear-gradient($line-color 0 0) 0 100% / var(--d, 0) 1px
+    no-repeat;
+  transition: background $t-medium;
+
+  @include hover {
+    --d: 100%;
+  }
+}
+
+@mixin anim-underline-hide($line-color: currentColor) {
+  background: linear-gradient($line-color 0 0) 0 100% / var(--d, 100%) 1px
+    no-repeat;
+  transition: background $t-medium;
+
+  @include hover {
+    --d: 0%;
+  }
+}
+
+// Change color links
+@mixin anim-change-color(
+  $elem-color: currentColor,
+  $hover-color: $color-minor
+) {
+  color: $elem-color;
+  transition: color $t-normal;
+
+  @include hover {
+    color: $hover-color;
+  }
+}
+
+@mixin underline-animation($reverse: false) {
+  position: relative;
+  padding: 0;
+  border: none;
+  line-height: 1.5;
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    content: "";
+    width: if($reverse, 100%, 0);
+    height: 1px;
+    border-bottom: 1px solid currentColor;
+    right: if($reverse, auto, 0);
+    left: if($reverse, 0, auto);
+    transition: width 0.9s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  @include hover {
+    &::after {
+      width: if($reverse, 0, 100%);
+      right: if($reverse, 0, auto);
+      left: if($reverse, auto, 0);
+    }
+  }
+}
+
+@mixin underline-normal {
+  @include underline-animation(false);
+}
+
+@mixin underline-reverse {
+  @include underline-animation(true);
+}

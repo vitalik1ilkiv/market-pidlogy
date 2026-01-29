@@ -1,0 +1,81 @@
+@use "../base/mixins" as *;
+@use "../base/variables" as *;
+@use "../base/media-queries" as *;
+
+.dropdown {
+  position: relative;
+  width: 100%;
+
+  select {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+  }
+
+  [data-head] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-radius: 0;
+    background: $color-gray-2;
+    cursor: pointer;
+    transition: all $t-normal ease;
+
+    [data-head-name] {
+      font-size: 1.5rem;
+      color: $color-black-light;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      width: 1rem;
+      height: 1rem;
+      background: $arrow;
+      background-size: contain;
+      background-repeat: no-repeat;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  [data-content] {
+    position: absolute;
+    display: none;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: $color-gray-2;
+    box-shadow: 0 7px 10px 0px rgba(0, 0, 0, 0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 100;
+
+    [data-item] {
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      transition:
+        background-color $t-normal ease,
+        color $t-normal ease;
+
+      @include hover {
+        background-color: $color-red;
+        color: $color-white;
+      }
+
+      &._current {
+        background-color: $color-red;
+        color: $color-white;
+      }
+    }
+  }
+
+  &._active {
+    [data-head]::after {
+      transform: rotate(180deg);
+    }
+  }
+}

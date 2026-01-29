@@ -1,0 +1,128 @@
+@use "../base/mixins" as *;
+@use "../base/variables" as *;
+@use "animation" as *;
+
+.action {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s all;
+  background: none;
+  white-space: nowrap;
+  border-radius: 0;
+  line-height: 1;
+  font-weight: 400 !important;
+  -webkit-tap-highlight-color: inherit;
+  border-radius: 0 !important;
+
+  a:active,
+  a:focus {
+    outline: none;
+    background: inherit;
+  }
+
+  > * {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  &-primary {
+    background: $color-green;
+    border: none;
+    border-bottom: 3px solid $color-green-2;
+    color: $color-white;
+    display: block;
+    font-weight: 700;
+    height: 4.3rem;
+    line-height: 4.1rem;
+    padding: 0 1.4rem 0 1.4rem;
+    position: relative;
+    text-transform: uppercase;
+
+    &.disabled,
+    &:disabled {
+      background: $color-gray !important;
+    }
+
+    &:not(.disabled):not(:disabled) {
+      @include hover {
+        background: $color-green-2;
+      }
+    }
+  }
+
+  &-secondary {
+    background: $color-red;
+    border: none;
+    border-bottom: 3px solid $color-red-2;
+    color: $color-white;
+    display: block;
+    font-weight: 700;
+    height: 4.3rem;
+    line-height: 4.1rem;
+    padding: 0 1.4rem 0 1.4rem;
+    position: relative;
+    text-transform: uppercase;
+
+    &.disabled,
+    &:disabled {
+      background: $color-gray !important;
+    }
+
+    &:not(.disabled):not(:disabled) {
+      @include hover {
+        background: $color-red-2;
+      }
+    }
+  }
+
+  &-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0;
+    border: none;
+    color: $color-red;
+    transition: color $t-normal;
+
+    @include hover {
+      opacity: 0.9;
+
+      .action-label {
+        color: $color-black-light;
+      }
+    }
+
+    .action-label {
+      line-height: 1;
+      font-size: 1.3rem;
+      transition: color $t-normal;
+    }
+
+    &-hover {
+      @include hover {
+        color: $color-red-2;
+      }
+    }
+  }
+
+  &-underlined,
+  &-underline {
+    position: relative;
+    height: auto;
+    padding: 0;
+    border: none;
+    line-height: 1.5;
+  }
+
+  &-underline {
+    @include underline-normal;
+  }
+
+  &-underlined {
+    @include underline-reverse;
+  }
+}

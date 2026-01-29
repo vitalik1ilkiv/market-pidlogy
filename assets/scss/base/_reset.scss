@@ -1,0 +1,132 @@
+*,
+:before,
+:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  min-width: 320px;
+}
+
+body,
+button,
+ul,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+fieldset,
+dl,
+dd,
+blockquote,
+input,
+figure {
+  margin: 0;
+}
+
+ul,
+ol,
+fieldset,
+button,
+th,
+td {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+abbr,
+ins {
+  text-decoration: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+button {
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+button,
+fieldset {
+  border: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table,
+td,
+th {
+  border: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+  font-weight: normal;
+}
+
+address,
+i,
+cite {
+  font-style: inherit;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+img {
+  vertical-align: top;
+  user-select: none;
+}
+
+svg {
+  display: block;
+}
+
+[tabindex],
+button {
+  &:focus {
+    outline: none;
+  }
+}
+
+mark {
+  background-color: transparent;
+}
+
+::-moz-focus-inner {
+  border: 0;
+}

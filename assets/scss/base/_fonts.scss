@@ -1,0 +1,17 @@
+@mixin font-face($name, $file-path, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: "#{$name}";
+    src: url("../fonts/#{$file-path}.woff") format("woff");
+    font-weight: $weight;
+    font-style: $style;
+    font-display: swap;
+  }
+}
+
+// // Exo2 Font Family
+// @include font-face("Exo 2", "exo/Exo2-Light", 300, normal);
+// @include font-face("Exo 2", "exo/Exo2-Regular", 400, normal);
+// @include font-face("Exo 2", "exo/Exo2-Medium", 500, normal);
+// @include font-face("Exo 2", "exo/Exo2-SemiBold", 600, normal);
+// @include font-face("Exo 2", "exo/Exo2-Bold", 700, normal);
+// @include font-face("Exo 2", "exo/Exo2-ExtraBold", 800, normal);
