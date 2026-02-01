@@ -82,12 +82,12 @@ function theme_enqueue_assets() {
     ));
 
     wp_localize_script('theme-scripts', 'formValidateMessages', [
-      'required'        => __('Це поле обов\'язкове.', 'protec'),
-      'email'           => __('Будь ласка, введіть дійсну адресу електронної пошти.', 'protec'),
-      'tel'             => __('Будь ласка, введіть дійсний номер телефону.', 'protec'),
-      'password'        => __('Пароль повинен містити щонайменше 5 символів, великі літери та цифри.', 'protec'),
-      'passwordConfirm' => __('Будь ласка, введіть те саме значення.', 'protec'),
-      'telUa' => __('Введіть коректний номер телефону.', 'protec'),
+      'required'        => __('Це поле обов\'язкове.', 'market'),
+      'email'           => __('Будь ласка, введіть дійсну адресу електронної пошти.', 'market'),
+      'tel'             => __('Будь ласка, введіть дійсний номер телефону.', 'market'),
+      'password'        => __('Пароль повинен містити щонайменше 5 символів, великі літери та цифри.', 'market'),
+      'passwordConfirm' => __('Будь ласка, введіть те саме значення.', 'market'),
+      'telUa' => __('Введіть коректний номер телефону.', 'market'),
     ]);
 }
 add_action('wp_enqueue_scripts', 'theme_enqueue_assets');
@@ -160,14 +160,14 @@ if (function_exists('acf_add_options_page')) {
  * support menu
  */
 
-function protec_register_menus() {
+function market_register_menus() {
     register_nav_menus([
-        'header_menu' => __('Меню в шапці', 'protec'),
-        'footer_menu' => __('Меню в підвалі', 'protec'),
-        'footer_menu2' => __('Меню в підвалі 2', 'protec'),
+        'header_menu' => __('Меню в шапці', 'market'),
+        'footer_menu' => __('Меню в підвалі', 'market'),
+        'footer_menu2' => __('Меню в підвалі 2', 'market'),
     ]);
 }
-add_action('after_setup_theme', 'protec_register_menus');
+add_action('after_setup_theme', 'market_register_menus');
 
 /**
  * Support thumbnail

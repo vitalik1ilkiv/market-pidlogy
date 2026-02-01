@@ -49,7 +49,9 @@
       width: 100%;
       height: 0.2rem;
       background-color: $color-black;
-      transition: transform $t-normal ease, opacity $t-normal ease;
+      transition:
+        transform $t-normal ease,
+        opacity $t-normal ease;
     }
 
     &::before {
@@ -109,6 +111,14 @@
           }
         }
 
+        &.qtranxs-lang-menu {
+          .sub-menu {
+            width: 10rem;
+            left: 50%;
+            transform: translate(-50%, 0) !important;
+          }
+        }
+
         a {
           position: relative;
           display: flex;
@@ -117,6 +127,7 @@
           font-size: 1.4rem;
           font-weight: 500;
           padding-right: 1rem;
+          white-space: nowrap;
           transition: color $t-normal ease-in-out;
 
           @include hover {
@@ -189,6 +200,12 @@
           align-items: center;
           width: 100%;
 
+          &.qtranxs-lang-menu {
+            .sub-menu {
+              transform: translate(0%, 0) !important;
+            }
+          }
+
           &.is-open {
             > a {
               color: $color-red;
@@ -229,7 +246,6 @@
           visibility: visible;
           transform: none;
           width: 100%;
-          padding: 0 0 0 1.5rem;
 
           li a {
             margin: 0;

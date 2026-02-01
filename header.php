@@ -70,36 +70,11 @@
           </div>
 
           <nav class="header__menu hidden-mobile-to-tablet-p">
-            <ul>
-              <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-24515">
-                <a href="">Магазин</a>
-                <ul class="sub-menu">
-                  <li id="menu-item-5275" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-251">
-                    <a href="https://market-pidlogy.com.ua/uk/laminat/">Ламінат</a>
-                    <ul class="sub-menu">
-                      <li id="menu-item-252" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-252"><a href="https://protec.org.ua/product-category/plate/avs-mod-2/">AVS Mod.2</a></li>
-                      <li id="menu-item-253" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-253"><a href="https://protec.org.ua/product-category/plate/frankenstein/">Frankenstein</a></li>
-                    </ul>
-                  </li>
-                  <li id="menu-item-24917" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-24917"><a href="https://market-pidlogy.com.ua/uk/vinilovyj-pol/">Вінілова підлога</a></li>
-                  <li id="menu-item-10309" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-10309"><a href="https://market-pidlogy.com.ua/uk/doska/">Терасна дошка</a></li>
-                  <li id="menu-item-32068" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-32068"><a href="https://market-pidlogy.com.ua/uk/fasadna-doshka/">Фасадна дошка</a></li>
-                  <li id="menu-item-25120" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-25120"><a href="https://market-pidlogy.com.ua/uk/stenovye-paneli/">Стінові панелі</a></li>
-                  <li id="menu-item-10395" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-10395"><a href="https://market-pidlogy.com.ua/uk/aksesuari/">Плінтус та підкладка</a></li>
-                  <li id="menu-item-22179" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-22179"><a href="https://market-pidlogy.com.ua/uk/parketnaya-himiya/">Клей для ПВХ</a></li>
-                  <li id="menu-item-27630" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27630"><a href="https://market-pidlogy.com.ua/uk/akczijni-tovary/">Акційні товари</a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="">Магазин</a>
-              </li>
-              <li>
-                <a href="">Магазин</a>
-              </li>
-              <li>
-                <a href="">Магазин</a>
-              </li>
-            </ul>
+            <?php
+              wp_nav_menu([
+                  'theme_location' => 'header_menu',
+              ]);
+            ?>
           </nav>
 
           <div class="header__social hidden-mobile-to-tablet-p">
@@ -186,36 +161,11 @@
           
           <div class="header__bottom-content j-nav-mobile " style="display: none;">
             <nav class="header__menu">
-              <ul>
-              <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-24515">
-                <a href="">Магазин</a>
-                <ul class="sub-menu">
-                  <li id="menu-item-5275" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-251">
-                    <a href="https://market-pidlogy.com.ua/uk/laminat/">Ламінат</a>
-                    <ul class="sub-menu">
-                      <li id="menu-item-252" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-252"><a href="https://protec.org.ua/product-category/plate/avs-mod-2/">AVS Mod.2</a></li>
-                      <li id="menu-item-253" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-253"><a href="https://protec.org.ua/product-category/plate/frankenstein/">Frankenstein</a></li>
-                    </ul>
-                  </li>
-                  <li id="menu-item-24917" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-24917"><a href="https://market-pidlogy.com.ua/uk/vinilovyj-pol/">Вінілова підлога</a></li>
-                  <li id="menu-item-10309" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-10309"><a href="https://market-pidlogy.com.ua/uk/doska/">Терасна дошка</a></li>
-                  <li id="menu-item-32068" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-32068"><a href="https://market-pidlogy.com.ua/uk/fasadna-doshka/">Фасадна дошка</a></li>
-                  <li id="menu-item-25120" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-25120"><a href="https://market-pidlogy.com.ua/uk/stenovye-paneli/">Стінові панелі</a></li>
-                  <li id="menu-item-10395" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-10395"><a href="https://market-pidlogy.com.ua/uk/aksesuari/">Плінтус та підкладка</a></li>
-                  <li id="menu-item-22179" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-22179"><a href="https://market-pidlogy.com.ua/uk/parketnaya-himiya/">Клей для ПВХ</a></li>
-                  <li id="menu-item-27630" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27630"><a href="https://market-pidlogy.com.ua/uk/akczijni-tovary/">Акційні товари</a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="">Магазин</a>
-              </li>
-              <li>
-                <a href="">Магазин</a>
-              </li>
-              <li>
-                <a href="">Магазин</a>
-              </li>
-            </ul>
+              <?php
+                wp_nav_menu([
+                    'theme_location' => 'header_menu',
+                ]);
+              ?>
             </nav>
           </div>
         </div>
