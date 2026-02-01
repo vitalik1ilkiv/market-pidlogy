@@ -26,8 +26,11 @@
     );
   } @else {
     @return calc(
-      -1 * (#{$minValue}px + (#{$maxValue} - #{$minValue}) *
-            ((100vw - #{$minWidth}px) / (#{$maxWidth} - #{$minWidth})))
+      -1 *
+        (
+          #{$minValue}px + (#{$maxValue} - #{$minValue}) *
+            ((100vw - #{$minWidth}px) / (#{$maxWidth} - #{$minWidth}))
+        )
     );
   }
 }
@@ -55,10 +58,7 @@
 }
 
 // Change color links
-@mixin anim-change-color(
-  $elem-color: currentColor,
-  $hover-color: $color-minor
-) {
+@mixin anim-change-color($elem-color: currentColor, $hover-color: $color-red) {
   color: $elem-color;
   transition: color $t-normal;
 

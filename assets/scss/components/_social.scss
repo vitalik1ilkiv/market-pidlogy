@@ -1,0 +1,44 @@
+@use "../base/mixins" as *;
+@use "../base/variables" as *;
+@use "../base/media-queries" as *;
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .action-social {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 0.1rem solid transparent;
+    transition: border-color $t-normal ease-in-out, box-shadow $t-normal ease-in-out;
+
+    &--instagram {
+      @include hover {
+        border-color: #ff78b2;
+        box-shadow: 0 0 8px rgba(#ff78b2, 0.4);
+      }
+    }
+
+    &--facebook {
+      @include hover {
+        border-color: #2a5297;
+        box-shadow: 0 0 8px rgba(#2a5297, 0.4);
+      }
+    }
+
+    &--viber {
+      @include hover {
+        border-color: #7e57c2;
+        box-shadow: 0 0 8px rgba(#7e57c2, 0.4);
+      }
+    }
+
+    &--telegram {
+      @include hover {
+        border-color: #29b6f6;
+        box-shadow: 0 0 8px rgba(#29b6f6, 0.4);
+      }
+    }
+  }
+}
