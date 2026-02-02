@@ -119,6 +119,12 @@
           }
         }
 
+        &.current-menu-item {
+          a {
+            color: $color-red;
+          }
+        }
+
         a {
           position: relative;
           display: flex;
@@ -152,7 +158,7 @@
           position: absolute;
           left: 0;
           top: 99%;
-          z-index: 3;
+          z-index: 9;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -175,6 +181,7 @@
             a {
               height: auto;
               margin: 1rem 0;
+              white-space: normal;
             }
 
             .sub-menu {

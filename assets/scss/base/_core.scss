@@ -59,8 +59,14 @@ p {
   }
 }
 
-#wpadminbar {
-  display: none;
+// #wpadminbar {
+//   display: none;
+// }
+
+body {
+  &:has(#wpadminbar) {
+    margin-top: 3.2rem !important;
+  }
 }
 
 .wp-site-blocks {
@@ -167,7 +173,7 @@ h1,
 .h1 {
   margin-bottom: 1rem;
   font-size: 4rem;
-  font-weight: 500;
+  font-weight: 700;
   text-transform: initial;
 
   @include mobile {
@@ -179,7 +185,7 @@ h2,
 .h2 {
   margin-bottom: 1rem;
   font-size: 3.4rem;
-  font-weight: 500;
+  font-weight: 700;
   text-transform: initial;
 
   @include mobile {
@@ -191,7 +197,7 @@ h3,
 .h3 {
   margin-bottom: 1rem;
   font-size: 2.8rem;
-  font-weight: 500;
+  font-weight: 700;
   text-transform: initial;
 
   @include mobile {
@@ -203,7 +209,7 @@ h4,
 .h4 {
   margin-bottom: 1rem;
   font-size: 2.2rem;
-  font-weight: 500;
+  font-weight: 700;
   text-transform: initial;
 
   @include mobile {
@@ -215,7 +221,7 @@ h5,
 .h5 {
   margin-bottom: 1rem;
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 700;
   text-transform: initial;
 
   @include mobile {
@@ -320,6 +326,14 @@ a:not(.product-item__body) {
 
 .justify-center {
   justify-content: center;
+}
+
+.text-start {
+  text-align: start !important;
+}
+
+.pt-0 {
+  padding-top: 0 !important;
 }
 
 .mt-0 {

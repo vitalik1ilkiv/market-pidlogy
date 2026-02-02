@@ -1,0 +1,28 @@
+@use "../base/variables" as *;
+@use "../base/media-queries" as *;
+
+.badges {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  z-index: 3;
+  top: 0rem;
+  right: 0rem;
+  text-align: right;
+  gap: 0.5rem;
+
+  .badge {
+    display: inline-block;
+    padding: 0.6rem 1rem;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: $color-white;
+    background-color: $color-red;
+
+    @include mobile {
+      font-size: 1rem;
+    }
+  }
+}

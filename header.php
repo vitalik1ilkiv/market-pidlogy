@@ -52,7 +52,7 @@
             <?php endif; ?>
           </p>
           <p class="hidden-mobile">
-            Маркет підлоги
+            <?php _e('Floor market', 'market-pidlogy'); ?>
           </p>
         </div>
       </div>
@@ -64,7 +64,7 @@
             <span></span>
           </button>
           <div class="header__logo">
-            <a href="">
+            <a href="/">
               <img src="<?php echo THEME_ASSETS ?>/img/logo.png" alt="Маркет підлоги" width="250" height="47">
             </a>
           </div>
@@ -81,7 +81,7 @@
             <?php get_template_part('./template-parts/social'); ?>
           </div>
           <div class="header__info hidden-mobile-to-tablet-p">
-            <?php if (have_rows('phones', 'option')) : ?>
+            <?php if (get_field_object('phones', 'option') && have_rows('phones', 'option')) : ?>
               <?php while (have_rows('phones', 'option')) : the_row();
                 $phone = get_sub_field('phone');
               ?>
@@ -105,19 +105,20 @@
                   <use xlink:href="#icon-search"></use>
                 </svg>
               </a>
-              <a class="action action-icon" href="">
+              <a class="action action-icon action-icon-favorite" href="/wish-list/" aria-label="Відкрити список бажань">
                 <svg class="icon icon--heart" width="24" height="24">
                   <use xlink:href="#icon-heart"></use>
                 </svg>
+                <span class="icon-count" style="display: none;"></span>
               </a>
-              <a class="action action-icon" href="">
+              <a class="action action-icon" href="" aria-label="Відкрити список порівнянь">
                 <svg class="icon icon--chart" width="24" height="24">
                   <use xlink:href="#icon-chart"></use>
                 </svg>
               </a>
             </div>
-            <a class="action action-icon" href="">
-              <svg class="icon icon--cart" width="24" height="24">
+            <a class="action action-icon" href="/cart/">
+              <svg class="icon icon--cart" width="24" height="24" aria-label="Відкрити кошик">
                 <use xlink:href="#icon-cart"></use>
               </svg>
             </a>
@@ -127,12 +128,13 @@
           <div class="header__bottom-icon">
             <?php get_template_part('./template-parts/social'); ?>
              <div class="header__action-icon">
-              <a class="action action-icon" href="">
+              <a class="action action-icon action-icon-favorite" href="/wish-list/" aria-label="Відкрити список бажань">
                 <svg class="icon icon--heart" width="24" height="24">
                   <use xlink:href="#icon-heart"></use>
                 </svg>
+                <span class="icon-count" style="display: none;"></span>
               </a>
-               <a class="action action-icon" href="">
+              <a class="action action-icon" href="" aria-label="Відкрити список порівнянь">
                 <svg class="icon icon--chart" width="24" height="24">
                   <use xlink:href="#icon-chart"></use>
                 </svg>
@@ -140,12 +142,12 @@
             </div>
           </div>
 
-          <div class="header__info hidden-tablet-l text-center mt-1">
-            <?php if (have_rows('phones', 'option')) : ?>
+          <div class="header__info hidden-tablet-l text-center">
+            <?php if (get_field_object('phones', 'option') && have_rows('phones', 'option')) : ?>
               <?php while (have_rows('phones', 'option')) : the_row();
                 $phone = get_sub_field('phone');
               ?>
-                <p class="mb-0">
+                <p class="mb-1 mt-1">
                   <a class="action action-color" href="tel:<?php echo sanitize_phone($phone); ?>">
                     <?php echo esc_html($phone); ?>
                   </a>
@@ -174,4 +176,4 @@
   </header>
 
 	<!-- Main wrapper -->
-	<div class="main-wrapper">
+	<div class="main-wrapper  <?php echo ( is_front_page() ? 'pt-0' : '' ); ?>"">

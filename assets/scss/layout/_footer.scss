@@ -1,0 +1,55 @@
+@use "../base/mixins" as *;
+@use "../base/variables" as *;
+@use "../base/media-queries" as *;
+
+.footer {
+  background: $color-light;
+  padding: 1.5rem 0 3.5rem;
+
+  @include tablet-p {
+    padding: 7.5rem 0 6.5rem;
+  }
+
+  &__wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+
+    @include mobile {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__image {
+    margin-top: 2rem;
+  }
+
+  &__column {
+    flex: 1;
+    padding: 0 2rem;
+  }
+
+  &__column-title {
+    @include mobile {
+      text-align: center;
+    }
+  }
+
+  &__column-body {
+    @include mobile {
+      text-align: center;
+    }
+
+    a {
+      display: block;
+      text-align: left;
+      margin-bottom: 1rem;
+      @include anim-change-color;
+
+      @include mobile {
+        text-align: center;
+      }
+    }
+  }
+}

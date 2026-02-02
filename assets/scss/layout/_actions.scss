@@ -12,11 +12,9 @@
   transition: 0.3s all;
   background: none;
   white-space: nowrap;
-  border-radius: 0;
   line-height: 1;
   font-weight: 400 !important;
   -webkit-tap-highlight-color: inherit;
-  border-radius: 0 !important;
 
   a:active,
   a:focus {
@@ -30,17 +28,16 @@
   }
 
   &-primary {
-    background: $color-green;
-    border: none;
-    border-bottom: 3px solid $color-green-2;
+    padding: 0.8rem 2.5rem;
+    font-size: 1.4rem;
+    line-height: 1;
+    border: 0.1rem solid $color-blue;
+    background: $color-blue;
     color: $color-white;
-    display: block;
-    font-weight: 700;
-    height: 4.3rem;
-    line-height: 4.1rem;
-    padding: 0 1.4rem 0 1.4rem;
-    position: relative;
-    text-transform: uppercase;
+    border-radius: 2.5rem;
+    transition:
+      color $t-normal,
+      background $t-normal;
 
     &.disabled,
     &:disabled {
@@ -49,23 +46,22 @@
 
     &:not(.disabled):not(:disabled) {
       @include hover {
-        background: $color-green-2;
+        background: $color-white;
+        color: $color-blue;
       }
     }
   }
 
   &-secondary {
-    background: $color-red;
-    border: none;
-    border-bottom: 3px solid $color-red-2;
+    padding: 0.8rem 2.5rem;
+    font-size: 1.4rem;
+    line-height: 1;
+    border: 0.1rem solid $color-blue;
+    background: $color-blue;
     color: $color-white;
-    display: block;
-    font-weight: 700;
-    height: 4.3rem;
-    line-height: 4.1rem;
-    padding: 0 1.4rem 0 1.4rem;
-    position: relative;
-    text-transform: uppercase;
+    transition:
+      color $t-normal,
+      background $t-normal;
 
     &.disabled,
     &:disabled {
@@ -74,7 +70,8 @@
 
     &:not(.disabled):not(:disabled) {
       @include hover {
-        background: $color-red-2;
+        background: $color-white;
+        color: $color-blue;
       }
     }
   }
@@ -99,6 +96,21 @@
       svg {
         transform: scale(1.1);
       }
+    }
+
+    .icon-count {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 1.2rem;
+      background: $color-red;
+      color: $color-white;
+      height: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 2rem;
+      border-radius: 50%;
     }
   }
 

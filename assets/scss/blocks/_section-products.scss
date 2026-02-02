@@ -1,0 +1,94 @@
+@use "../base/mixins" as *;
+@use "../base/variables" as *;
+@use "../base/media-queries" as *;
+
+.section-product {
+  padding: 5rem 0;
+
+  @include mobile {
+    padding: 3rem 0;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+
+    @include tablet-l {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  .swiper {
+    &:not(.swiper-initialized) {
+      .swiper-wrapper {
+        display: flex;
+        gap: 0.5rem;
+
+        @include tablet-l {
+          gap: 1.5rem;
+        }
+      }
+
+      .swiper-slide {
+        width: calc(50% - 1rem);
+
+        @include tablet-l {
+          width: calc(33% - 2rem);
+        }
+
+        @include laptop {
+          width: calc(25% - 2rem);
+        }
+      }
+    }
+  }
+
+  &.with-bg {
+    background: $color-bg-light;
+  }
+
+  &__title {
+    margin-bottom: 3rem;
+  }
+
+  &__link {
+    margin-bottom: 2rem;
+
+    a {
+      color: $color-blue;
+    }
+  }
+}
+
+.section-brands {
+  padding: 5rem 0;
+
+  @include mobile {
+    padding: 3rem 0;
+  }
+
+  &__title {
+    margin-bottom: 3rem;
+  }
+
+  &__link {
+    margin-bottom: 2rem;
+
+    a {
+      color: $color-blue;
+    }
+  }
+
+  &__name {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  &__item-image {
+    position: relative;
+    margin: 2.5rem;
+  }
+}

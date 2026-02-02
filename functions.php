@@ -71,9 +71,9 @@ function theme_enqueue_assets() {
     echo '<link rel="preload" href="' . esc_url($fancybox_css_url) . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">';
     echo '<noscript><link rel="stylesheet" href="' . esc_url($fancybox_css_url) . '"></noscript>';
 
-    $intlTelInput_css_url = get_stylesheet_directory_uri() . '/assets/scss/lib/intlTelInput.css';
-    echo '<link rel="preload" href="' . esc_url($intlTelInput_css_url) . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">';
-    echo '<noscript><link rel="stylesheet" href="' . esc_url($intlTelInput_css_url) . '"></noscript>';
+    // $intlTelInput_css_url = get_stylesheet_directory_uri() . '/assets/scss/lib/intlTelInput.css';
+    // echo '<link rel="preload" href="' . esc_url($intlTelInput_css_url) . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">';
+    // echo '<noscript><link rel="stylesheet" href="' . esc_url($intlTelInput_css_url) . '"></noscript>';
 
     wp_localize_script('theme-scripts', 'marketData', array(
         'ajaxUrl' => admin_url('admin-ajax.php'),
@@ -196,3 +196,8 @@ add_filter( 'wp_prepare_attachment_for_js', function ( $response ) {
     return $response;
 });
 
+
+function my_theme_load_textdomain() {
+    load_theme_textdomain( 'market-pidlogy', get_template_directory() . '/languages' );
+}
+add_action( 'after_setup_theme', 'my_theme_load_textdomain' );
