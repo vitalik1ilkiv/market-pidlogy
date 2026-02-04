@@ -22,8 +22,8 @@ if (!$sale_products->have_posts()) {
     return;
 }
 
-$sale_title     = get_field('sale_title') ?: __('Акційні товари', 'market-pidlogy');
-$sale_link_text = get_field('sale_link_text') ?: __('Дивитись всі', 'market-pidlogy');
+$sale_title     = get_field('sale_title') ?: __('Promotional goods', 'market-pidlogy');
+$sale_link_text = get_field('sale_link_text') ?: __('Watch all', 'market-pidlogy');
 $sale_link      = get_field('sale_link') ?: '';
 ?>
 
@@ -79,12 +79,12 @@ $sale_link      = get_field('sale_link') ?: '';
         ?>
       </div>
        <div class="swiper-pagination"></div>
-        <button class="swiper-button swiper-button-prev" aria-label="<?php esc_attr_e('Previous slide', 'protecstore'); ?>">
+        <button class="swiper-button swiper-button-prev" aria-label="<?php esc_attr_e('Previous slide', 'market-pidlogy'); ?>">
           <svg class="icon" width="12" height="12">
             <use xlink:href="#icon-prev"></use>
           </svg>
         </button>
-        <button class="swiper-button swiper-button-next" aria-label="<?php esc_attr_e('Next slide', 'protecstore'); ?>">
+        <button class="swiper-button swiper-button-next" aria-label="<?php esc_attr_e('Next slide', 'market-pidlogy'); ?>">
           <svg class="icon" width="12" height="12">
             <use xlink:href="#icon-next"></use>
           </svg>

@@ -17,25 +17,25 @@ $product_id = $args['product_id'] ?? get_the_ID();
 <div class="badges">
   <?php if (get_field('акція_товар', $product_id)) : ?>
     <span class="badge badge--sale">
-      <?php _e('Акція', 'market-pidlogy'); ?>
+      <?php _e('Sale', 'market-pidlogy'); ?>
     </span>
   <?php endif; ?>
 
   <?php if (get_field('новинка_товар', $product_id)) : ?>
     <span class="badge badge--new">
-      <?php _e('Новинка', 'market-pidlogy'); ?>
+      <?php _e('New', 'market-pidlogy'); ?>
     </span>
   <?php endif; ?>
 
   <?php if (get_field('бесплатная_доставка_по_украине', $product_id)) : ?>
     <span class="badge badge--delivery">
-      <?php _e('Безкоштовна доставка', 'market-pidlogy'); ?>
+      <?php _e('Free delivery', 'market-pidlogy'); ?>
     </span>
   <?php endif; ?>
 
   <?php if (get_field('rasprodazha', $product_id)) : ?>
     <span class="badge badge--clearance">
-      <?php _e('Розпродаж', 'market-pidlogy'); ?>
+      <?php _e('Sales', 'market-pidlogy'); ?>
     </span>
   <?php endif; ?>
 </div>

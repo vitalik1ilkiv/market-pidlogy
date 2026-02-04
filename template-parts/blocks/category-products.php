@@ -39,7 +39,7 @@ if (empty($products)) {
 }
 
 $title     = ($acf_title && get_field($acf_title)) ? get_field($acf_title) : $default_title;
-$link_text = ($acf_link_text && get_field($acf_link_text)) ? get_field($acf_link_text) : __('Дивитись всі', 'market-pidlogy');
+$link_text = ($acf_link_text && get_field($acf_link_text)) ? get_field($acf_link_text) : __('Watch all', 'market-pidlogy');
 $link      = ($acf_link && get_field($acf_link)) ? get_field($acf_link) : '';
 
 if (!$link) {

@@ -21,13 +21,13 @@
     justify-content: space-between;
     padding: 1rem 1.5rem;
     border-radius: 0;
-    background: $color-gray-2;
+    background: $color-light;
     cursor: pointer;
     transition: all $t-normal ease;
 
     [data-head-name] {
       font-size: 1.5rem;
-      color: $color-black-light;
+      color: $color-black;
     }
 
     &::after {
@@ -48,7 +48,7 @@
     top: 100%;
     left: 0;
     right: 0;
-    background: $color-gray-2;
+    background: $color-light;
     box-shadow: 0 7px 10px 0px rgba(0, 0, 0, 0.1);
     max-height: 300px;
     overflow-y: auto;
@@ -62,12 +62,12 @@
         color $t-normal ease;
 
       @include hover {
-        background-color: $color-red;
+        background-color: $color-blue;
         color: $color-white;
       }
 
       &._current {
-        background-color: $color-red;
+        background-color: $color-blue;
         color: $color-white;
       }
     }

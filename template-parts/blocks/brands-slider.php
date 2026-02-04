@@ -15,8 +15,8 @@ if (is_wp_error($brands) || empty($brands)) {
     return;
 }
 
-$brands_title = get_field('brand_title') ?: __('Бренди', 'market-pidlogy');
-$sale_link_text = get_field('brand_link_text') ?: __('Дивитись всі', 'market-pidlogy');
+$brands_title = get_field('brand_title') ?: __('Brands', 'market-pidlogy');
+$sale_link_text = get_field('brand_link_text') ?: __('Watch all', 'market-pidlogy');
 $sale_link      = get_field('brand_link') ?: '';
 ?>
 

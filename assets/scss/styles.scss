@@ -27,8 +27,10 @@
 
 // woocommerce
 
+@use "woocommerce/archive-products";
 @use "woocommerce/product-item";
 @use "woocommerce/badges";
+@use "woocommerce/pagination";
 
 // blocks
 

@@ -1,0 +1,43 @@
+@use "../base/mixins" as *;
+@use "../base/variables" as *;
+
+.woocommerce-pagination {
+  margin-top: 3rem;
+
+  ul {
+    border: none !important;
+  }
+
+  li {
+    width: 4.4rem;
+    height: 4.4rem;
+    border: none !important;
+
+    > * {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100%;
+      height: 100%;
+      font-size: 1.5rem !important;
+    }
+
+    span {
+      &.current {
+        background: $color-blue !important;
+        color: $color-white !important;
+      }
+    }
+
+    a {
+      transition:
+        background $t-normal ease-in,
+        color $t-normal ease-in;
+
+      @include hover {
+        background: $color-blue !important;
+        color: $color-white !important;
+      }
+    }
+  }
+}

@@ -19,7 +19,7 @@ function sanitize_phone($phone) {
 function protec_breadcrumbs($args = []) {
     // Параметри за замовчуванням
     $defaults = [
-        'home_label'       => 'Головна',
+        'home_label'       => __( 'Home', 'market-pidlogy' ),
         'separator'        => '/',
         'container_class'  => 'breadcrumbs',
         'list_class'       => 'breadcrumbs__list',
@@ -201,14 +201,14 @@ function protec_breadcrumbs($args = []) {
     // Пошук
     elseif (is_search()) {
         $breadcrumbs[] = [
-            'title' => sprintf(__('Результати пошуку: %s', 'protec'), get_search_query()),
+            'title' => sprintf(__('Search results: %s', 'market-pidlogy'), get_search_query()),
         ];
     }
 
     // 404
     elseif (is_404()) {
         $breadcrumbs[] = [
-            'title' => __('Сторінка не знайдена', 'protec'),
+            'title' => __('Page not found', 'market-pidlogy'),
         ];
     }
 

@@ -95,7 +95,7 @@ Component("favorites", ($el) => {
     showToast({
       image: info.image,
       title: info.title,
-      message: added ? "додано в улюблене" : "видалено з улюбленого",
+      message: added ? favoritesMessages.added : favoritesMessages.removed,
       link: info.link,
     });
   });

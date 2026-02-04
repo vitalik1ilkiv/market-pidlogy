@@ -46,7 +46,7 @@ if (!isset($product) || !is_a($product, 'WC_Product')) {
       <?php if ($product->is_in_stock()) : ?>
         <div class="product-item__action-wrap">
           <a class="action action-primary" href="<?php echo esc_url(add_query_arg('add-to-cart', $product->get_id(), get_permalink($product->get_id()))); ?>" aria-label="Купити товар">
-            <?php _e('Купити', 'market-pidlogy'); ?>
+            <?php _e('Buy', 'market-pidlogy'); ?>
           </a>
         </div>
       <?php endif; ?>

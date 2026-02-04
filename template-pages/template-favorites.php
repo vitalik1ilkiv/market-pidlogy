@@ -28,14 +28,14 @@ if (!empty($favorite_ids)) {
     <div class="container">
       <?php woocommerce_breadcrumb(); ?>
       <h1 class="woocommerce-products-header__title page-title">
-        <?php _e('Улюблені товари', 'market-pidlogy'); ?>
+        <?php _e('Wish list', 'market-pidlogy'); ?>
       </h1>
     </div>
   </div>
 
   <main id="main" class="site-main container" role="main">
     <?php if (!empty($products)) : ?>
-      <div class="products-grid">
+      <div class="products-wrapper columns-4">
         <?php foreach ($products as $product) :
             get_template_part(
                 'template-parts/woocommerce/product/product-item',
@@ -46,7 +46,7 @@ if (!empty($favorite_ids)) {
       </div>
     <?php else : ?>
       <p class="favorites-page__empty">
-        <?php _e('У вас поки немає улюблених товарів.', 'market-pidlogy'); ?>
+        <?php _e('You don\'t have any favorite products yet.', 'market-pidlogy'); ?>
       </p>
     <?php endif; ?>
   </main>

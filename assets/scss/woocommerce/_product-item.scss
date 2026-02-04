@@ -14,6 +14,14 @@
   transition: box-shadow $t-normal;
   overflow: hidden;
 
+  &.outofstock {
+    opacity: 0.5;
+
+    img {
+      opacity: 0.5;
+    }
+  }
+
   @include hover {
     box-shadow: 0 0 30px -10px rgb(0 0 0 / 30%);
 
@@ -111,5 +119,23 @@
   .product-item__action-icons .button-favorite._active {
     opacity: 1;
     pointer-events: auto;
+  }
+
+  &__price {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+    font-size: 1.8rem;
+
+    .price-regular {
+      font-size: 1.2rem;
+      color: $color-gray-5;
+      text-decoration: line-through;
+      font-weight: 400;
+    }
+
+    .price-sale {
+      color: $color-red;
+    }
   }
 }
