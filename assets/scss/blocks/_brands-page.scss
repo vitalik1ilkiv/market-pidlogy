@@ -1,0 +1,119 @@
+@use "../base/mixins" as *;
+@use "../base/variables" as *;
+@use "../base/media-queries" as *;
+
+.brands-page {
+  &__title {
+    margin-bottom: 2rem;
+  }
+
+  &__alphabet {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    padding: 2rem 0;
+    margin-bottom: 3rem;
+    border-top: 1px solid $color-gray-3;
+    border-bottom: 1px solid $color-gray-3;
+    position: sticky;
+    top: 0;
+    background: $color-white;
+    z-index: 10;
+
+    @include mobile {
+      gap: 0.5rem;
+      padding: 1.5rem 0;
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__letter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 4rem;
+    height: 4rem;
+    padding: 0 1rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: $color-black;
+    background: $color-light;
+    border-radius: 0.6rem;
+    text-decoration: none;
+    transition:
+      background $t-normal,
+      color $t-normal;
+
+    @include hover {
+      background: $color-blue;
+      color: $color-white;
+    }
+
+    @include mobile {
+      min-width: 3.4rem;
+      height: 3.4rem;
+      font-size: 1.4rem;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+
+    @include tablet-p {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include tablet-l {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @include laptop {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    text-decoration: none;
+    color: $color-black;
+    border: 0.1rem solid transparent;
+    transition:
+      box-shadow $t-normal,
+      border-color $t-normal;
+
+    @include hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border-color: $color-blue;
+
+      .brands-page__item-image img {
+        transform: scale3d(0.8, 0.8, 0.8);
+      }
+    }
+
+    @include mobile {
+      padding: 1.5rem 1rem;
+    }
+  }
+
+  &__item-image {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    img {
+      object-fit: contain;
+    }
+  }
+
+  &__item-name {
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 0;
+  }
+}

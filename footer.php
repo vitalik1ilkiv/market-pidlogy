@@ -86,7 +86,7 @@
                 <div class="footer__column-body">
                   <?php if ( !empty($location_text) && !empty($location_link) ): ?>
                     <p>
-                      <a class="action action-color text-start" href="<?php echo esc_url( $location_link ); ?>" style="text-wrap: wrap;">
+                      <a class="action action-color" href="<?php echo esc_url( $location_link ); ?>" style="text-wrap: wrap;">
                         <?php echo esc_html( $location_text ); ?>
                       </a>
                     </p>

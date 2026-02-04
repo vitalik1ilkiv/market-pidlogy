@@ -90,5 +90,9 @@
   &__item-image {
     position: relative;
     margin: 2.5rem;
+
+    img {
+      object-fit: contain;
+    }
   }
 }
