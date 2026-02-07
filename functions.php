@@ -71,11 +71,18 @@ function theme_enqueue_assets() {
     echo '<link rel="preload" href="' . esc_url($fancybox_css_url) . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">';
     echo '<noscript><link rel="stylesheet" href="' . esc_url($fancybox_css_url) . '"></noscript>';
 
+    // Preload critical fonts (Rubik 300, 400, 500, 700 normal)
+    $dist_url = get_template_directory_uri() . '/dist';
+    echo '<link rel="preload" href="' . esc_url($dist_url . '/b1f0f1d816758ea3bc4a.woff2') . '" as="font" type="font/woff2" crossorigin>';
+    echo '<link rel="preload" href="' . esc_url($dist_url . '/7faeaac164d429f053a1.woff2') . '" as="font" type="font/woff2" crossorigin>';
+    echo '<link rel="preload" href="' . esc_url($dist_url . '/b87db4c34be5f3bcbae4.woff2') . '" as="font" type="font/woff2" crossorigin>';
+    echo '<link rel="preload" href="' . esc_url($dist_url . '/15b537d9fdb84230fd6e.woff2') . '" as="font" type="font/woff2" crossorigin>';
+
     // $intlTelInput_css_url = get_stylesheet_directory_uri() . '/assets/scss/lib/intlTelInput.css';
     // echo '<link rel="preload" href="' . esc_url($intlTelInput_css_url) . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">';
     // echo '<noscript><link rel="stylesheet" href="' . esc_url($intlTelInput_css_url) . '"></noscript>';
 
-    // Cart fragments for AJAX cart count update
+    // Cart fragments - завантажується на всіх сторінках з defer
     if ( class_exists( 'WooCommerce' ) ) {
         wp_enqueue_script( 'wc-cart-fragments' );
     }
@@ -127,7 +134,7 @@ add_action('wp_enqueue_scripts', 'move_jquery_to_footer', 0);
 
 // Додаємо defer до скриптів
 function add_defer_attribute($tag, $handle) {
-    $defer_scripts = ['theme-scripts', 'swiper-js', 'lazysizes'];
+    $defer_scripts = ['jquery', 'theme-scripts', 'swiper-js', 'lazysizes', 'fancybox-js', 'arcticmodal-js', 'utils-js', 'wc-cart-fragments'];
 
     if (in_array($handle, $defer_scripts)) {
         return str_replace(' src', ' defer src', $tag);
@@ -137,12 +144,49 @@ function add_defer_attribute($tag, $handle) {
 }
 add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
 
+// Відключаємо WooCommerce order-attribution скрипт (tracking, не потрібен для роботи магазину)
+function disable_order_attribution_scripts() {
+    wp_dequeue_script('wc-order-attribution');
+    wp_deregister_script('wc-order-attribution');
+}
+add_action('wp_enqueue_scripts', 'disable_order_attribution_scripts', 99);
+
+// Відключаємо sourcebuster (використовується order-attribution для трекінгу)
+function disable_sourcebuster_scripts() {
+    wp_dequeue_script('sourcebuster-js');
+    wp_deregister_script('sourcebuster-js');
+}
+add_action('wp_enqueue_scripts', 'disable_sourcebuster_scripts', 99);
+
 function remove_block_library_css() {
   wp_dequeue_style('wp-block-library');
   wp_dequeue_style('wp-block-library-theme');
+  // WC Blocks CSS
+  wp_dequeue_style('wc-blocks-style');
+  wp_dequeue_style('wc-blocks-vendors-style');
+  wp_dequeue_style('wc-blocks-packages-style');
+  wp_dequeue_style('wc-blocks');
+  wp_dequeue_style('wc-blocks-css');
 }
 
 add_action( 'wp_enqueue_scripts', 'remove_block_library_css', 999 );
+
+// Видаляємо зайві WooCommerce стилі
+function optimize_woocommerce_styles() {
+    wp_dequeue_style('woocommerce-smallscreen');
+    wp_deregister_style('woocommerce-smallscreen');
+}
+add_action('wp_enqueue_scripts', 'optimize_woocommerce_styles', 999);
+
+// Робимо WooCommerce CSS неблокуючими (async load)
+function make_wc_styles_async($html, $handle) {
+    $async_styles = ['woocommerce-layout', 'woocommerce-general'];
+    if (in_array($handle, $async_styles)) {
+        return str_replace("rel='stylesheet'", "rel='preload' as='style' onload=\"this.onload=null;this.rel='stylesheet'\"", $html);
+    }
+    return $html;
+}
+add_filter('style_loader_tag', 'make_wc_styles_async', 10, 2);
 
 
 /**

@@ -8,6 +8,7 @@ if ( $slides && is_array($slides) ): ?>
       data-wp="slider"
       data-wp-config='{
         "settings": {
+          "deferInit": true,
           "autoplay": {
             "delay": 5000,
             "disableOnInteraction": false

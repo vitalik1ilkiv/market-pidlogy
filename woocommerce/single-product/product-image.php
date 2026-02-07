@@ -16,23 +16,7 @@ if (empty($gallery_ids)) {
 ?>
 
 <div class="custom-product-gallery">
-   <div class="badges">
-    <?php if ($product->is_on_sale()) : ?>
-      <span class="badge badge--sale">Акція</span>
-    <?php endif; ?>
-
-    <?php
-      $created_date = strtotime($product->get_date_created());
-      $days_old = (time() - $created_date) / (60 * 60 * 24);
-      if ($days_old <= 7) :
-    ?>
-      <span class="badge badge--new">новинка</span>
-    <?php endif; ?>
-
-    <?php if ( has_term( 'popular', 'product_tag', $product->get_id() ) ) : ?>
-      <span class="badge badge--popular">популярний</span>
-    <?php endif; ?>
-  </div>
+  <?php get_template_part('./template-parts/woocommerce/product/badges', null, ['product_id' => $product->get_id()]); ?>
   <!-- Thumbs -->
   <div class="custom-product-gallery__small hidden-mobile">
     <div class="custom-gallery-thumbs swiper" data-wp="slider" data-slider-id="thumbs"

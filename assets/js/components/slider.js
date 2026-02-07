@@ -17,7 +17,18 @@ function waitForSwiper(callback) {
 }
 
 Component("slider", ($el, props) => {
-  waitForSwiper(() => new Slider($el, props));
+  if (props.settings?.deferInit) {
+    // Відкладаємо ініціалізацію до window.load (для LCP слайдерів)
+    if (document.readyState === 'complete') {
+      waitForSwiper(() => new Slider($el, props));
+    } else {
+      window.addEventListener('load', () => {
+        waitForSwiper(() => new Slider($el, props));
+      });
+    }
+  } else {
+    waitForSwiper(() => new Slider($el, props));
+  }
 });
 
 class Slider {
