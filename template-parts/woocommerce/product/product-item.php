@@ -27,7 +27,10 @@ if (!isset($product) || !is_a($product, 'WC_Product')) {
           <?php
             $image_id = $product->get_image_id();
             if ($image_id) {
-                $image_url = wp_get_attachment_image_url($image_id, 'product-card');
+                $image_src = wp_get_attachment_image_src($image_id, 'woocommerce_single');
+                $image_url = $image_src[0];
+                $image_w   = $image_src[1];
+                $image_h   = $image_src[2];
                 $image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', true) ?: $product->get_name();
             ?>
               <img
@@ -37,17 +40,30 @@ if (!isset($product) || !is_a($product, 'WC_Product')) {
                 src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                 data-src="<?= esc_url($image_url); ?>"
                 alt="<?= esc_attr($image_alt); ?>"
+                width="<?= esc_attr($image_w); ?>"
+                height="<?= esc_attr($image_h); ?>"
               />
             <?php } else {
-                echo wc_placeholder_img('product-card');
+                echo wc_placeholder_img('woocommerce_single');
             } ?>
           </picture>
       </div>
       <?php if ($product->is_in_stock()) : ?>
         <div class="product-item__action-wrap">
-          <a class="action action-primary" href="<?php echo esc_url(add_query_arg('add-to-cart', $product->get_id(), get_permalink($product->get_id()))); ?>" aria-label="Купити товар">
-            <?php _e('Buy', 'market-pidlogy'); ?>
-          </a>
+          <?php if (!$product->is_type('variable')) : ?>
+            <a class="action action-primary j-ajax-add-to-cart"
+               href="<?php echo esc_url(add_query_arg('add-to-cart', $product->get_id(), get_permalink($product->get_id()))); ?>"
+               data-product-id="<?php echo esc_attr($product->get_id()); ?>"
+               aria-label="<?php esc_attr_e('Buy', 'market-pidlogy'); ?>">
+              <?php _e('Buy', 'market-pidlogy'); ?>
+            </a>
+          <?php else : ?>
+            <a class="action action-primary"
+               href="<?php echo esc_url(get_permalink($product->get_id())); ?>"
+               aria-label="<?php esc_attr_e('Choose options', 'market-pidlogy'); ?>">
+              <?php _e('Buy', 'market-pidlogy'); ?>
+            </a>
+          <?php endif; ?>
         </div>
       <?php endif; ?>
       <div class="product-item__action-icons">

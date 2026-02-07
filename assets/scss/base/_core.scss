@@ -242,6 +242,17 @@ iframe {
 }
 
 main {
+  table {
+    p {
+      margin: 0;
+
+      &:empty {
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
   p {
     &:empty {
       &:after {
@@ -412,25 +423,11 @@ a:not(.product-item__body) {
   }
 }
 
-.loading::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: rgba(255, 255, 255, 0.6);
-  z-index: 10;
-}
-
-.loading::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 28px;
-  height: 28px;
-  border: 3px solid $color-gray;
-  border-top-color: $color-black;
-  border-radius: 50%;
-  animation: spinner-rotate 0.8s linear infinite;
-  transform: translate(-50%, -50%);
-  z-index: 11;
+.loading {
+  color: transparent !important;
+  pointer-events: none;
+  background: $color-gray-5
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cstyle%3E%40keyframes s%7B0%25%7Btransform:rotate(0)%7D100%25%7Btransform:rotate(360deg)%7D%7Dcircle%7Banimation:s .7s linear infinite;transform-origin:center%7D%3C/style%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='%23fff' stroke-width='2.5' stroke-dasharray='32 32'/%3E%3C/svg%3E")
+    center / 2rem no-repeat !important;
+  border-color: $color-gray-5 !important;
 }

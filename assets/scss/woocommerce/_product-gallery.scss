@@ -1,0 +1,121 @@
+@use "../base/mixins" as *;
+@use "../base/variables" as *;
+@use "../base/media-queries" as *;
+
+.custom-product-gallery {
+  position: relative;
+  display: flex;
+  gap: 3.5rem;
+  height: 50rem;
+  width: 100%;
+
+  @include mobile {
+    height: auto;
+    aspect-ratio: 1/1;
+  }
+
+  @include tablet-l {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 45%;
+    min-width: 45%;
+  }
+
+  &__small {
+    position: relative;
+    width: 9rem;
+    height: 100%;
+    padding: 9rem 0;
+
+    &:has(.swiper-initialized) {
+      .swiper-button {
+        opacity: 1;
+      }
+    }
+
+    .custom-gallery-thumbs {
+      width: 100%;
+      height: 100%;
+
+      &:not(.swiper-initialized) {
+        .swiper-slide {
+          height: 33%;
+        }
+      }
+    }
+
+    .swiper-slide {
+      width: 100%;
+
+      &.swiper-slide-thumb-active {
+        border: 1px solid;
+      }
+
+      img {
+        height: 100% !important;
+        object-fit: cover;
+      }
+    }
+
+    .swiper-button {
+      position: absolute;
+      z-index: 3;
+      top: 33%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 4.4rem;
+      height: 4.4rem;
+      border-radius: 50%;
+      box-shadow: 0 11px 9px rgb(34, 34, 34, 0.09);
+      color: $color-white;
+      background: $color-gray-5;
+      opacity: 0;
+      transition: transform $t-normal ease-in-out;
+      cursor: pointer;
+    }
+
+    &-prev {
+      transform: translate3d(-5rem, 0, 0);
+      left: 0;
+    }
+
+    &-next {
+      transform: translate3d(5rem, 0, 0);
+      right: 0;
+    }
+
+    .custom-gallery-thumbs-prev {
+      transform: translate3d(-50%, 0, 0) rotate(90deg);
+      left: 50%;
+      top: 4rem;
+    }
+
+    .custom-gallery-thumbs-next {
+      transform: translate3d(-50%, 0, 0) rotate(90deg);
+      left: 50%;
+      top: auto;
+      bottom: 4rem;
+    }
+  }
+
+  &__big {
+    flex: 1;
+    height: 100%;
+    width: calc(100% - 16.5rem);
+
+    .custom-gallery-main {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}

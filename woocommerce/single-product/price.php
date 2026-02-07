@@ -21,5 +21,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $product;
 
+$s_pack = $product->get_attribute( 'v-pachtsi' );
+if ( empty( $s_pack ) ) {
+	$s_pack = 1;
+}
+
+$vymir = $product->get_attribute( 'vymir-tovaru' );
+if ( empty( $vymir ) ) {
+	$vymir = 'м²';
+}
 ?>
-<p class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) ); ?>"><?php echo $product->get_price_html(); ?></p>
+
+<p class="single-product__price single-product__row">
+	<span class="el_title td">
+		<?php echo esc_html__( 'Price per', 'market-pidlogy' ) . ' ' . esc_html( $vymir ); ?>
+	</span>
+	<?php echo $product->get_price_html(); ?>
+</p>
+<p class="s_pack single-product__row">
+	<span class="el_title td">
+		<?php esc_html_e( 'In a pack', 'market-pidlogy' ); ?>
+	</span>
+	<?php echo esc_html( $s_pack ) . ' ' . esc_html( $vymir ); ?>
+</p>

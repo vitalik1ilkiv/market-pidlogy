@@ -1,0 +1,65 @@
+@use "../base/variables" as *;
+
+.product-quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 0.1rem solid $color-gray;
+
+  .quantity-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    min-width: 4rem;
+    height: 3.6rem;
+  }
+}
+
+.quantity {
+  float: unset !important;
+  height: 4.8rem;
+
+  input {
+    height: 100%;
+    text-align: center !important;
+    border: none !important;
+    outline: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    margin: 0 !important;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+  }
+}
+
+.custom-qty {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-left: 0;
+  height: 3.5rem;
+  border: 0.1rem solid $color-gray;
+  max-width: 14.5rem;
+
+  .qty-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    min-width: 4rem;
+    height: 3.6rem;
+  }
+}

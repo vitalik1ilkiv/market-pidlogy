@@ -21,23 +21,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 do_action( 'woocommerce_before_customer_login_form' ); ?>
 
+<div class="login-container">
+
 <?php if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) : ?>
-
 <div class="u-columns col2-set" id="customer_login">
-  <div class="login-container">
-
 	<div class="u-column1 col-1" id="login">
-
 <?php endif; ?>
 
 		<h2 class="h2 text-center mb-2"><?php esc_html_e( 'Login', 'woocommerce' ); ?></h2>
 
+    <?php if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) : ?>
     <p class="text-center mb-2">
-      Немає облікового запису?
-
+      <?php esc_html_e( 'Don\'t have an account?', 'market-pidlogy' ); ?>
       <a class="action action-underlined" href="#register">
-        Створити акаунт
+        <?php esc_html_e( 'Create an account', 'market-pidlogy' ); ?>
       </a>
+    </p>
+    <?php endif; ?>
 
 		<form class="woocommerce-form woocommerce-form-login login form js-form-validate" method="post" novalidate>
 
@@ -126,8 +126,8 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 	</div>
 </div>
-</div>
 <?php endif; ?>
+</div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {

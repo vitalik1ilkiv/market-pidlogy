@@ -75,6 +75,11 @@ function theme_enqueue_assets() {
     // echo '<link rel="preload" href="' . esc_url($intlTelInput_css_url) . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">';
     // echo '<noscript><link rel="stylesheet" href="' . esc_url($intlTelInput_css_url) . '"></noscript>';
 
+    // Cart fragments for AJAX cart count update
+    if ( class_exists( 'WooCommerce' ) ) {
+        wp_enqueue_script( 'wc-cart-fragments' );
+    }
+
     wp_localize_script('theme-scripts', 'marketData', array(
         'ajaxUrl' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('market-nonce'),
@@ -93,6 +98,19 @@ function theme_enqueue_assets() {
       'password'        => __('The password must contain at least 5 characters, uppercase letters and numbers.', 'market-pidlogy'),
       'passwordConfirm' => __('Please enter the same value.', 'market-pidlogy'),
       'telUa' => __('Please enter a valid phone number.', 'market-pidlogy'),
+    ]);
+
+    wp_localize_script('theme-scripts', 'liveSearchMessages', [
+      'categories' => __('Categories', 'market-pidlogy'),
+      'products'   => __('Products', 'market-pidlogy'),
+      'showAll'    => __('Show all found products', 'market-pidlogy'),
+      'notFound'   => __('Nothing found', 'market-pidlogy'),
+      'error'      => __('Request error', 'market-pidlogy'),
+      'placeholder' => __('Search products...', 'market-pidlogy'),
+    ]);
+
+    wp_localize_script('theme-scripts', 'addToCartMessages', [
+      'added' => __('added to cart', 'market-pidlogy'),
     ]);
 }
 add_action('wp_enqueue_scripts', 'theme_enqueue_assets');
@@ -134,6 +152,9 @@ function mytheme_add_woocommerce_support() {
 	add_theme_support('woocommerce');
 }
 add_action('after_setup_theme', 'mytheme_add_woocommerce_support');
+
+require get_template_directory() . '/inc/woocommerce/woocommerce.php';
+require get_template_directory() . '/inc/woocommerce/live-search.php';
 
 add_theme_support( 'title-tag' );
 
@@ -206,3 +227,19 @@ function my_theme_load_textdomain() {
     load_theme_textdomain( 'market-pidlogy', get_template_directory() . '/languages' );
 }
 add_action( 'after_setup_theme', 'my_theme_load_textdomain' );
+
+
+add_action('init', function() {
+    if (function_exists('qtranxf_getLanguage')) {
+        $lang = qtranxf_getLanguage();
+        switch ($lang) {
+            case 'ru':
+                load_textdomain('woocommerce', WP_LANG_DIR . '/plugins/woocommerce-ru_RU.mo');
+                break;
+            case 'uk':
+                load_textdomain('woocommerce', WP_LANG_DIR . '/plugins/woocommerce-uk.mo');
+                break;
+        }
+    }
+});
+

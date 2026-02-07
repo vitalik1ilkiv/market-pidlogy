@@ -24,6 +24,7 @@
 @use "components/form";
 @use "components/social";
 @use "components/toast";
+@use "components/live-search";
 
 // woocommerce
 
@@ -31,6 +32,12 @@
 @use "woocommerce/product-item";
 @use "woocommerce/badges";
 @use "woocommerce/pagination";
+@use "woocommerce/product-gallery";
+@use "woocommerce/single-product";
+@use "woocommerce/quantity";
+@use "woocommerce/global";
+@use "woocommerce/product-small-item";
+@use "woocommerce/login-page";
 
 // blocks
 

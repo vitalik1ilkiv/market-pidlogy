@@ -100,11 +100,24 @@
           </div>
           <div class ="header__action-icon">
             <div class="header__action-icon hidden-mobile-to-tablet-p">
-              <a class="action action-icon" href="">
-                <svg class="icon icon--search" width="24" height="24">
-                  <use xlink:href="#icon-search"></use>
-                </svg>
-              </a>
+              <div class="live-search live-search--desktop" data-wp="live-search">
+                <a class="action action-icon j-live-search-toggle" href="#">
+                  <svg class="icon icon--search" width="24" height="24">
+                    <use xlink:href="#icon-search"></use>
+                  </svg>
+                </a>
+                <div class="live-search__panel">
+                  <div class="live-search__form">
+                    <input type="search" class="j-live-search-input" placeholder="Пошук товарів..." autocomplete="off">
+                    <button class="live-search__btn j-live-search-btn" type="button" aria-label="Пошук">
+                      <svg class="icon icon--search" width="20" height="20">
+                        <use xlink:href="#icon-search"></use>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="live-search__results j-live-search-results"></div>
+                </div>
+              </div>
               <a class="action action-icon action-icon-favorite" href="/wish-list/" aria-label="Відкрити список бажань">
                 <svg class="icon icon--heart" width="24" height="24">
                   <use xlink:href="#icon-heart"></use>
@@ -117,10 +130,12 @@
                 </svg>
               </a>
             </div>
-            <a class="action action-icon" href="/cart/">
-              <svg class="icon icon--cart" width="24" height="24" aria-label="Відкрити кошик">
+            <a class="action action-icon" href="/cart/" aria-label="Відкрити кошик">
+              <svg class="icon icon--cart" width="24" height="24" >
                 <use xlink:href="#icon-cart"></use>
               </svg>
+               <?php $cart_count = WC()->cart->cart_contents_count; ?>
+               <span class="icon-count icon-cart-count"<?php if ( $cart_count === 0 ) echo ' style="display:none;"'; ?>><?php echo $cart_count; ?></span>
             </a>
           </div>
         </div>
@@ -169,6 +184,17 @@
                 ]);
               ?>
             </nav>
+            <div class="live-search live-search--mobile" data-wp="live-search">
+              <div class="live-search__form">
+                <input type="search" class="j-live-search-input" placeholder="Пошук товарів..." autocomplete="off">
+                <button class="live-search__btn j-live-search-btn" type="button" aria-label="Пошук">
+                  <svg class="icon icon--search" width="20" height="20">
+                    <use xlink:href="#icon-search"></use>
+                  </svg>
+                </button>
+              </div>
+              <div class="live-search__results j-live-search-results"></div>
+            </div>
           </div>
         </div>
       </div>
