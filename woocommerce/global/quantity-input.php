@@ -72,16 +72,18 @@ if ( $max_value && $min_value === $max_value ) {
 					<span></span> <?php _e( 'грн', 'market-pidlogy' ); ?>
 				</div>
 				<script>
-				jQuery(function($) {
+				document.addEventListener('DOMContentLoaded', function() {
 					var price = <?php echo esc_js( $product_price ); ?>;
-					var $qty = $('.quantityin_product input.qty');
-					var $total = $('.total_price_in_product .tp_num span');
+					var $qty = jQuery('.quantityin_product input.qty');
+					var $total = jQuery('.total_price_in_product .tp_num span');
+					if (!$qty.length || !$total.length) return;
 
-					$total.text((price * parseFloat($qty.val() || 0)).toFixed(2));
+					function update() {
+						$total.text((price * parseFloat($qty.val() || 0)).toFixed(2));
+					}
 
-					$qty.on('input keyup change', function() {
-						$total.text((price * parseFloat($(this).val() || 0)).toFixed(2));
-					});
+					update();
+					$qty.on('input change', update);
 				});
 				</script>
 			</div>

@@ -60,7 +60,7 @@ $col    = 1;
 	<div class="u-column<?php echo $col < 0 ? 1 : 2; ?> col-<?php echo $oldcol < 0 ? 1 : 2; ?> woocommerce-Address">
 		<header class="woocommerce-Address-title title">
 			<h2><?php echo esc_html( $address_title ); ?></h2>
-			<a href="<?php echo esc_url( wc_get_endpoint_url( 'edit-address', $name ) ); ?>" class="action action-primary mt-1 mb-1 edit">
+			<a href="<?php echo esc_url( wc_get_endpoint_url( 'edit-address', $name ) ); ?>" class="action action-primary mt-1 mb-2 edit">
 				<?php
 					printf(
 						/* translators: %s: Address title */
