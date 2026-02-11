@@ -101,7 +101,7 @@
           <div class ="header__action-icon">
             <div class="header__action-icon hidden-mobile-to-tablet-p">
               <div class="live-search live-search--desktop" data-wp="live-search">
-                <a class="action action-icon j-live-search-toggle" href="#">
+                <a class="action action-icon j-live-search-toggle" href="#" aria-label="<?php esc_attr_e('Search', 'market-pidlogy'); ?>">
                   <svg class="icon icon--search" width="24" height="24">
                     <use xlink:href="#icon-search"></use>
                   </svg>
@@ -124,11 +124,11 @@
                 </svg>
                 <span class="icon-count" style="display: none;"></span>
               </a>
-              <a class="action action-icon" href="" aria-label="Відкрити список порівнянь">
+              <!-- <a class="action action-icon" href="" aria-label="Відкрити список порівнянь">
                 <svg class="icon icon--chart" width="24" height="24">
                   <use xlink:href="#icon-chart"></use>
                 </svg>
-              </a>
+              </a> -->
             </div>
             <a class="action action-icon" href="/cart/" aria-label="Відкрити кошик">
               <svg class="icon icon--cart" width="24" height="24" >
@@ -149,11 +149,11 @@
                 </svg>
                 <span class="icon-count" style="display: none;"></span>
               </a>
-              <a class="action action-icon" href="" aria-label="Відкрити список порівнянь">
+              <!-- <a class="action action-icon" href="" aria-label="Відкрити список порівнянь">
                 <svg class="icon icon--chart" width="24" height="24">
                   <use xlink:href="#icon-chart"></use>
                 </svg>
-              </a>
+              </a> -->
             </div>
           </div>
 

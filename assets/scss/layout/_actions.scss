@@ -53,6 +53,32 @@
 
   }
 
+  &-primary-transparent {
+    padding: 0.8rem 2.5rem;
+    font-size: 1.4rem;
+    line-height: 1;
+    border: 0.1rem solid $color-blue;
+    background: $color-white;
+    color: $color-blue;
+    border-radius: 2.5rem;
+    transition:
+      color $t-normal,
+      background $t-normal;
+
+    &.disabled,
+    &:disabled {
+      border-color: $color-gray !important;
+      color: $color-gray !important;
+    }
+
+    &:not(.disabled):not(:disabled) {
+      @include hover {
+        background: $color-blue;
+        color: $color-white;
+      }
+    }
+  }
+
   &-secondary {
     padding: 0.8rem 2.5rem;
     font-size: 1.4rem;

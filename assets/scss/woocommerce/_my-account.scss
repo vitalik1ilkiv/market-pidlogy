@@ -1,0 +1,23 @@
+@use "../base/mixins" as *;
+@use "../base/variables" as *;
+@use "../base/media-queries" as *;
+
+.woocommerce-account {
+  .article {
+    margin-top: 3rem;
+  }
+
+  .woocommerce-MyAccount-navigation {
+    li {
+      margin-bottom: 1rem;
+
+      &.is-active {
+        font-weight: 700;
+      }
+
+      a {
+        @include underline-normal;
+      }
+    }
+  }
+}

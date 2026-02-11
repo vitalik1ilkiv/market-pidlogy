@@ -41,6 +41,10 @@ do_action( 'woocommerce_shop_loop_header' );
 $show_filters = is_product_category() || is_product_tag() || is_product_taxonomy();
 
 if ( $show_filters ) : ?>
+<div class="button-filter">
+  <?php _e('Filters', 'market-pidlogy'); ?>
+</div>
+<div class="filter-overlay"></div>
 <div class="archive-products-wrapper">
 	<?php get_template_part( 'template-parts/woocommerce/product-filters' );?>
 	<div class="archive-products-content">

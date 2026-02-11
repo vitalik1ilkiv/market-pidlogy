@@ -1,0 +1,481 @@
+@use "../base/mixins" as *;
+@use "../base/variables" as *;
+@use "../base/media-queries" as *;
+
+// Fixed filter button
+.button-filter {
+  position: fixed;
+  left: 0;
+  top: 150px;
+  z-index: 100;
+  background: $color-blue;
+  border: 0.1rem solid $color-blue;
+  color: $color-white;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1.8rem;
+  font-weight: 400;
+  border-radius: 0 0.5rem 0.5rem 0;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+  transition:
+    background $t-normal,
+    color $t-normal;
+
+  &:hover {
+    background: $color-white;
+    color: $color-blue;
+  }
+
+  &._active {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+// Overlay
+.filter-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity $t-normal,
+    visibility $t-normal;
+
+  &._visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.product-filters {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 45rem;
+  max-width: 85vw;
+  z-index: 201;
+  background: #fff;
+  border-right: 3px solid $color-blue;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+  transform: translateX(-100%);
+  transition: transform $t-normal $cubic-bezier;
+  display: flex;
+  flex-direction: column;
+
+  &._open {
+    transform: translateX(0);
+  }
+
+  &__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #999;
+    transition: color $t-fast;
+    z-index: 1;
+
+    &:hover {
+      color: $color-blue;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 1.5rem 1rem;
+    border-bottom: 1px solid #e5e5e5;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__reset {
+    background: none;
+    border: none;
+    color: $color-red;
+    font-size: 0.875rem;
+    cursor: pointer;
+    padding: 0;
+    transition: opacity 0.2s;
+    margin-top: 2rem;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__form {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 1.5rem;
+
+    // Scrollbar
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #ddd;
+      border-radius: 3px;
+
+      &:hover {
+        background: #bbb;
+      }
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: #ddd transparent;
+  }
+
+  &__section {
+    border-bottom: 1px solid #e5e5e5;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+
+  &__section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $color-blue;
+    }
+
+    &._open {
+      .product-filters__toggle-icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &__section-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  &__toggle-icon {
+    transition: transform 0.2s;
+    color: #666;
+  }
+
+  &__section-content {
+    display: none;
+    padding-bottom: 1rem;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border-top: 1px solid #e5e5e5;
+    flex-shrink: 0;
+  }
+
+  &__active-count {
+    font-weight: 400;
+    color: $color-blue;
+  }
+
+  &__apply,
+  &__reset-btn {
+    width: 100%;
+  }
+
+  .action {
+    max-width: 100% !important;
+  }
+}
+
+// Price Filter
+.price-filter {
+  &__inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  &__field {
+    flex: 1;
+    position: relative;
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      color: #666;
+      margin-bottom: 0.25rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.5rem 2rem 0.5rem 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 0.25rem;
+      font-size: 0.875rem;
+      transition: border-color 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: $color-blue;
+      }
+
+      // Прибираємо стрілки в number input
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      -moz-appearance: textfield;
+    }
+  }
+
+  &__currency {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  &__separator {
+    color: #999;
+    padding-top: 1rem;
+  }
+
+  &__slider {
+    position: relative;
+    height: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  &__track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #e5e5e5;
+    border-radius: 2px;
+    transform: translateY(-50%);
+  }
+
+  &__range {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: $color-blue;
+    border-radius: 2px;
+  }
+
+  &__slider-input {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    transform: translateY(-50%);
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    pointer-events: none;
+    border: none !important;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      background: $color-white;
+      border: 2px solid $color-blue;
+      border-radius: 50%;
+      cursor: pointer;
+      pointer-events: auto;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    &::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      background: $color-white;
+      border: 2px solid $color-blue;
+      border-radius: 50%;
+      cursor: pointer;
+      pointer-events: auto;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+// Attribute Filter
+.attribute-filter {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $color-blue;
+    }
+  }
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    width: 0 !important;
+    height: 0;
+    padding: 0 !important;
+
+    &:checked + .attribute-filter__checkbox {
+      background: $color-blue;
+      border-color: $color-blue;
+
+      &::after {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+
+  &__checkbox {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ddd;
+    border-radius: 3px;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+    transition: all 0.2s;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 13px;
+      background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUiIGhlaWdodD0iMTMiIHZpZXdCb3g9IjAgMCAxNSAxMyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEuMzAzMjIgNy45MDU4NUw0LjkzIDExLjExMDRMMTMuMzg5OCAxLjUxNTI2IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4K)
+        center no-repeat;
+      background-size: cover;
+      opacity: 0;
+      transition: all 0.2s;
+    }
+  }
+
+  &__name {
+    flex: 1;
+    font-size: 1.25rem;
+  }
+
+  &__count {
+    font-size: 0.875rem;
+    color: #999;
+    margin-left: 0.25rem;
+  }
+}
+
+// Products Loading State
+.products {
+  transition: opacity 0.3s;
+
+  &._loading {
+    opacity: 0.5;
+    pointer-events: none;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      margin: -20px 0 0 -20px;
+      border: 3px solid #e5e5e5;
+      border-top-color: $color-blue;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Scrollbar для списку атрибутів
+.attribute-filter {
+  scrollbar-width: thin;
+  scrollbar-color: #ddd transparent;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 2px;
+
+    &:hover {
+      background: #aaa;
+    }
+  }
+}

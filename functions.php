@@ -134,7 +134,7 @@ add_action('wp_enqueue_scripts', 'move_jquery_to_footer', 0);
 
 // Додаємо defer до скриптів
 function add_defer_attribute($tag, $handle) {
-    $defer_scripts = ['jquery', 'theme-scripts', 'swiper-js', 'lazysizes', 'fancybox-js', 'arcticmodal-js', 'utils-js', 'wc-cart-fragments'];
+    $defer_scripts = [ 'theme-scripts', 'swiper-js', 'lazysizes', 'fancybox-js', 'arcticmodal-js', 'utils-js', 'wc-cart-fragments'];
 
     if (in_array($handle, $defer_scripts)) {
         return str_replace(' src', ' defer src', $tag);
@@ -171,16 +171,9 @@ function remove_block_library_css() {
 
 add_action( 'wp_enqueue_scripts', 'remove_block_library_css', 999 );
 
-// Видаляємо зайві WooCommerce стилі
-function optimize_woocommerce_styles() {
-    wp_dequeue_style('woocommerce-smallscreen');
-    wp_deregister_style('woocommerce-smallscreen');
-}
-add_action('wp_enqueue_scripts', 'optimize_woocommerce_styles', 999);
-
 // Робимо WooCommerce CSS неблокуючими (async load)
 function make_wc_styles_async($html, $handle) {
-    $async_styles = ['woocommerce-layout', 'woocommerce-general'];
+    $async_styles = ['woocommerce-layout', 'woocommerce-general', 'woocommerce-smallscreen'];
     if (in_array($handle, $async_styles)) {
         return str_replace("rel='stylesheet'", "rel='preload' as='style' onload=\"this.onload=null;this.rel='stylesheet'\"", $html);
     }
@@ -199,6 +192,7 @@ add_action('after_setup_theme', 'mytheme_add_woocommerce_support');
 
 require get_template_directory() . '/inc/woocommerce/woocommerce.php';
 require get_template_directory() . '/inc/woocommerce/live-search.php';
+require get_template_directory() . '/inc/woocommerce/product-filters.php';
 
 add_theme_support( 'title-tag' );
 

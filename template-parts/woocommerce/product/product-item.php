@@ -73,11 +73,11 @@ if (!isset($product) || !is_a($product, 'WC_Product')) {
           </svg>
         </button>
 
-        <button>
+        <!-- <button>
           <svg class="icon icon--compare" width="16" height="16" aria-label="Додати до порівняння">
             <use xlink:href="#icon-compare"></use>
           </svg>
-        </button>
+        </button> -->
       </div>
       <?php get_template_part('./template-parts/woocommerce/product/badges', null, ['product_id' => $product->get_id()]); ?>
     </div>

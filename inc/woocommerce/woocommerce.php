@@ -46,6 +46,58 @@
     }
   }, 10 );
 
+  // Відновлюємо кошик при скасуванні/невдалій оплаті
+  add_action( 'woocommerce_order_status_cancelled', 'restore_cart_on_cancelled_order' );
+  add_action( 'woocommerce_order_status_failed', 'restore_cart_on_cancelled_order' );
+  function restore_cart_on_cancelled_order( $order_id ) {
+    $order = wc_get_order( $order_id );
+    if ( ! $order ) return;
+
+    if ( WC()->cart->is_empty() ) {
+      foreach ( $order->get_items() as $item ) {
+        $product_id   = $item->get_variation_id() ?: $item->get_product_id();
+        $quantity     = $item->get_quantity();
+        WC()->cart->add_to_cart( $product_id, $quantity );
+      }
+    }
+  }
+
+  // Редірект на кошик при поверненні зі скасованої оплати
+  add_action( 'template_redirect', 'redirect_cancelled_order_to_cart' );
+  function redirect_cancelled_order_to_cart() {
+    if ( ! is_wc_endpoint_url( 'order-pay' ) && ! is_wc_endpoint_url( 'order-received' ) ) return;
+
+    if ( isset( $_GET['cancel_order'] ) || ( isset( $_GET['key'] ) && isset( $_GET['order'] ) ) ) {
+      $order_id = isset( $_GET['order'] ) ? absint( $_GET['order'] ) : 0;
+      if ( ! $order_id && is_wc_endpoint_url( 'order-received' ) ) {
+        global $wp;
+        $order_id = absint( $wp->query_vars['order-received'] );
+      }
+
+      if ( $order_id ) {
+        $order = wc_get_order( $order_id );
+        if ( $order && in_array( $order->get_status(), array( 'cancelled', 'failed', 'pending' ) ) ) {
+          // Відновлюємо кошик якщо пустий
+          if ( WC()->cart->is_empty() ) {
+            foreach ( $order->get_items() as $item ) {
+              $product_id = $item->get_variation_id() ?: $item->get_product_id();
+              $quantity   = $item->get_quantity();
+              WC()->cart->add_to_cart( $product_id, $quantity );
+            }
+          }
+
+          // Скасовуємо замовлення якщо pending
+          if ( $order->get_status() === 'pending' ) {
+            $order->update_status( 'cancelled', __( 'Оплату скасовано клієнтом.', 'market-pidlogy' ) );
+          }
+
+          wp_safe_redirect( wc_get_cart_url() );
+          exit;
+        }
+      }
+    }
+  }
+
   add_filter( 'woocommerce_checkout_fields', 'custom_checkout_fields_priority' );
   function custom_checkout_fields_priority( $fields ) {
 
@@ -61,18 +113,20 @@
   remove_action( 'woocommerce_checkout_terms_and_conditions', 'wc_checkout_privacy_policy_text', 20 );
 
   add_filter( 'woocommerce_checkout_fields', function( $fields ) {
-    // Додаємо атрибут до <input>
+    // Імʼя — обовʼязкове
+    $fields['billing']['billing_first_name']['custom_attributes'] = array(
+        'data-validate' => '{"required":true}'
+    );
+
+    // Телефон — обовʼязковий + валідація формату
     $fields['billing']['billing_phone']['custom_attributes'] = array(
         'data-validate' => '{"required":true, "telUa": true}'
     );
 
-    // Додаємо клас до <p> через wrapper_class і кастомний data-validate
     $fields['billing']['billing_phone']['wrapper_class'][] = 'field';
-    $fields['billing']['billing_phone']['validate'] = array('required', 'tel'); // залишаємо для WC валідації
+    $fields['billing']['billing_phone']['validate'] = array('required', 'tel');
 
-    // Додатково, якщо хочеш, щоб <p> теж мав data-validate
     add_filter( 'woocommerce_form_field_billing_phone', function( $field_html, $key, $args, $value ) {
-        // додаємо data-validate до <p>
         $field_html = str_replace(
             '<p class="form-row ',
             '<p class="form-row field" data-validate=\'{"required":true, "telUa": true}\' ',

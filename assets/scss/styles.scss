@@ -25,6 +25,7 @@
 @use "components/social";
 @use "components/toast";
 @use "components/live-search";
+@use "components/product-filters";
 
 // woocommerce
 
@@ -38,6 +39,7 @@
 @use "woocommerce/global";
 @use "woocommerce/product-small-item";
 @use "woocommerce/login-page";
+@use "woocommerce/my-account";
 
 // blocks
 

@@ -24,13 +24,14 @@ class FormValidate {
 
   bind() {
     this.formSubmitBtn.on("click", this.formSubmit.bind(this));
+    $(this.props.form).on("submit", this.formSubmit.bind(this));
   }
 
   init() {
     let self = this;
 
     // ==== INIT intl-tel-input (тільки для "tel":true, не для telUa) ====
-    const telInputs = $('input[data-validate*=\'"tel"\']');
+    const telInputs = $("input[data-validate*='\"tel\"']");
 
     telInputs.each(function () {
       const input = this;
@@ -96,6 +97,14 @@ class FormValidate {
     // Блокуємо стандартний submit якщо є помилки АБО це AJAX форма
     if (!this.isValid || form.hasClass("send-form")) {
       e.preventDefault();
+      e.stopImmediatePropagation();
+
+      // Скролимо до першого поля з помилкою
+      const firstError = form.find("." + this.props.errorClass).first();
+      if (firstError.length) {
+        firstError[0].scrollIntoView({ behavior: "smooth", block: "center" });
+        firstError.focus();
+      }
     }
   }
 

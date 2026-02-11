@@ -51,7 +51,7 @@
       ></path>
     </symbol>
 
-    <svg
+    <symbol
       id="icon-close"
       fill="none"
       stroke="currentColor"
@@ -66,7 +66,7 @@
     >
       <path d="M18.75 5.25L5.25 18.75"></path>
       <path d="M18.75 18.75L5.25 5.25"></path>
-    </svg>
+    </symbol>
 
     <symbol 
       id="icon-minus"

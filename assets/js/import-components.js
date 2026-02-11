@@ -5,3 +5,4 @@ import "./components/send-form.js";
 import "./components/favorites.js";
 import "./components/live-search.js";
 import "./components/add-to-cart.js";
+import "./components/product-filters.js";
