@@ -193,6 +193,7 @@ add_action('after_setup_theme', 'mytheme_add_woocommerce_support');
 require get_template_directory() . '/inc/woocommerce/woocommerce.php';
 require get_template_directory() . '/inc/woocommerce/live-search.php';
 require get_template_directory() . '/inc/woocommerce/product-filters.php';
+require get_template_directory() . '/inc/woocommerce/send-order-in-telegram.php';
 
 add_theme_support( 'title-tag' );
 
@@ -280,4 +281,66 @@ add_action('init', function() {
         }
     }
 });
+
+function add_gtag_head() { ?>
+	<script>
+	!function(f,b,e,v,n,t,s)
+	{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	n.queue=[];t=b.createElement(e);t.async=!0;
+	t.src=v;s=b.getElementsByTagName(e)[0];
+	s.parentNode.insertBefore(t,s)}(window, document,'script',
+	'https://connect.facebook.net/en_US/fbevents.js');
+	fbq('init', '1062245060973734');
+	fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" style="display:none"
+	src="https://www.facebook.com/tr?id=1062245060973734&ev=PageView&noscript=1"
+	/></noscript>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-611704413"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-611704413');
+      document.addEventListener('DOMContentLoaded', function(){          
+          var els = document.querySelectorAll('.add_to_cart_button.ajax_add_to_cart');
+          Array.from(els).forEach(function(el) {
+            el.addEventListener('click', () => {send_cart_add_in_list(el)});
+          });
+          function send_cart_add_in_list(e) {
+              let price = e.getAttribute('data-price');
+              let pid = e.getAttribute('data-product_id');
+              send_cart_add(pid,price);
+          }
+          function send_cart_add(p,pr,c) {
+              try {
+                  c = c||'UAH';
+                  gtag('event','add_to_cart',{
+                      'send_to': 'AW-611704413',
+                      'value': pr,
+                      'currency': c,
+                      'items': [{
+                          'id': p,
+                          'google_business_vertical': 'retail'
+                      }]
+                  });
+				  fbq('track', 'AddToCart', {
+				    value: pr,
+				    currency: 'UAH',
+				    content_ids: p,
+				    content_type: 'product',
+				  });
+              } catch(e) {}
+          }
+      });
+    </script>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-MKW9MMR');</script>
+<?php }
+add_action( 'wp_head', 'add_gtag_head' );
 

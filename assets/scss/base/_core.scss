@@ -264,7 +264,28 @@ main {
 
     a {
       cursor: pointer;
-      @include anim-change-color();
+      @include anim-change-color($color-blue);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      margin: 1.5rem 0;
+
+      &.alignleft {
+        float: left;
+        margin: 0.5rem 2rem 1.5rem 0;
+      }
+
+      &.alignright {
+        float: right;
+        margin: 0.5rem 0 1.5rem 2rem;
+      }
+
+      &.aligncenter {
+        display: block;
+        margin: 1.5rem auto;
+      }
     }
   }
 }

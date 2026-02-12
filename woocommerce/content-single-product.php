@@ -75,3 +75,43 @@ if ( post_password_required() ) {
 </div>
 
 <?php do_action( 'woocommerce_after_single_product' ); ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        gtag('event', 'view_item', {
+            'send_to': 'AW-611704413',
+            'value': <?=$product->get_price()?>,
+            'items': [{
+                'id': <?=$product->get_id()?>,
+                'google_business_vertical': 'retail'
+                }]
+            });
+          fbq('track', 'ViewContent', {
+            value: <?=$product->get_price()?>,
+            currency: 'UAH',
+            content_ids: <?=$product->get_id()?>,
+            content_type: 'product',
+          });        
+        var els = document.getElementsByClassName("single_add_to_cart_button");
+
+        for (var i = 0; i < els.length; i++) {
+            els[i].addEventListener('click', function(){
+                gtag('event', 'add_to_cart', {
+                    'send_to': 'AW-611704413',
+                    'value': <?=$product->get_price()?>,
+                    'items': [{
+                        'id': <?=$product->get_id()?>,
+                        'google_business_vertical': 'retail'
+                    }]
+                });
+                fbq('track', 'AddToCart', {
+                    value: <?=$product->get_price()?>,
+                    currency: 'UAH',
+                    content_ids: <?=$product->get_id()?>,
+                    content_type: 'product',
+                  });
+
+            });
+        }
+    });
+</script>

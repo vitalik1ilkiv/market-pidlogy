@@ -46,56 +46,39 @@
     }
   }, 10 );
 
-  // Відновлюємо кошик при скасуванні/невдалій оплаті
-  add_action( 'woocommerce_order_status_cancelled', 'restore_cart_on_cancelled_order' );
-  add_action( 'woocommerce_order_status_failed', 'restore_cart_on_cancelled_order' );
-  function restore_cart_on_cancelled_order( $order_id ) {
+  // Відновлюємо кошик при скасуванні/невдалій онлайн-оплаті
+  add_action( 'template_redirect', 'redirect_unpaid_order_to_cart' );
+  function redirect_unpaid_order_to_cart() {
+    if ( ! is_wc_endpoint_url( 'order-received' ) ) return;
+
+    global $wp;
+    $order_id = isset( $wp->query_vars['order-received'] ) ? absint( $wp->query_vars['order-received'] ) : 0;
+    if ( ! $order_id ) return;
+
     $order = wc_get_order( $order_id );
     if ( ! $order ) return;
 
+    // Тільки для неоплачених замовлень
+    if ( $order->is_paid() ) return;
+    if ( ! in_array( $order->get_status(), array( 'pending', 'failed', 'cancelled' ) ) ) return;
+
+    // Пропускаємо офлайн методи оплати (COD, банківський переказ тощо)
+    $offline_methods = array( 'cod', 'bacs', 'cheque' );
+    if ( in_array( $order->get_payment_method(), $offline_methods ) ) return;
+
+    // Відновлюємо кошик
     if ( WC()->cart->is_empty() ) {
       foreach ( $order->get_items() as $item ) {
-        $product_id   = $item->get_variation_id() ?: $item->get_product_id();
-        $quantity     = $item->get_quantity();
+        $product_id = $item->get_variation_id() ?: $item->get_product_id();
+        $quantity   = $item->get_quantity();
         WC()->cart->add_to_cart( $product_id, $quantity );
       }
     }
-  }
 
-  // Редірект на кошик при поверненні зі скасованої оплати
-  add_action( 'template_redirect', 'redirect_cancelled_order_to_cart' );
-  function redirect_cancelled_order_to_cart() {
-    if ( ! is_wc_endpoint_url( 'order-pay' ) && ! is_wc_endpoint_url( 'order-received' ) ) return;
+    wc_add_notice( __( 'Your order has been placed, but there are problems with payment. Our manager will call you to offer other payment methods.', 'market-pidlogy' ), 'error' );
 
-    if ( isset( $_GET['cancel_order'] ) || ( isset( $_GET['key'] ) && isset( $_GET['order'] ) ) ) {
-      $order_id = isset( $_GET['order'] ) ? absint( $_GET['order'] ) : 0;
-      if ( ! $order_id && is_wc_endpoint_url( 'order-received' ) ) {
-        global $wp;
-        $order_id = absint( $wp->query_vars['order-received'] );
-      }
-
-      if ( $order_id ) {
-        $order = wc_get_order( $order_id );
-        if ( $order && in_array( $order->get_status(), array( 'cancelled', 'failed', 'pending' ) ) ) {
-          // Відновлюємо кошик якщо пустий
-          if ( WC()->cart->is_empty() ) {
-            foreach ( $order->get_items() as $item ) {
-              $product_id = $item->get_variation_id() ?: $item->get_product_id();
-              $quantity   = $item->get_quantity();
-              WC()->cart->add_to_cart( $product_id, $quantity );
-            }
-          }
-
-          // Скасовуємо замовлення якщо pending
-          if ( $order->get_status() === 'pending' ) {
-            $order->update_status( 'cancelled', __( 'Оплату скасовано клієнтом.', 'market-pidlogy' ) );
-          }
-
-          wp_safe_redirect( wc_get_cart_url() );
-          exit;
-        }
-      }
-    }
+    wp_safe_redirect( wc_get_cart_url() );
+    exit;
   }
 
   add_filter( 'woocommerce_checkout_fields', 'custom_checkout_fields_priority' );
