@@ -156,7 +156,7 @@
           <img
             class="lazyload"
             src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-            data-src="https://market-pidlogy.com.ua/wp-content/themes/KLIF/img/inweb-logo.jpg"
+            data-src="<?php echo esc_url( THEME_ASSETS . '/img/inweb-logo.jpg' ); ?>"
             alt="Логотип Inweb"
             width="40"
             height="24"
@@ -168,6 +168,29 @@
     </footer>
     <!-- END: Site Footer -->
 
+  
+
   <?php wp_footer(); ?>
+
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/60599da2f7ce18270932e84c/1f1f1861i';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
+  <script type="text/javascript">
+    (function(d, w, s) {
+    var widgetHash = 'tq5he8b3wrohi2l3zmew', gcw = d.createElement(s); gcw.type = 'text/javascript'; gcw.async = true;
+    gcw.src = '//widgets.binotel.com/getcall/widgets/'+ widgetHash +'.js';
+    var sn = d.getElementsByTagName(s)[0]; sn.parentNode.insertBefore(gcw, sn);
+    })(document, window, 'script');
+  </script>
 </body>
 </html>
