@@ -174,7 +174,7 @@ add_action( 'wp_enqueue_scripts', 'remove_block_library_css', 999 );
 // Робимо WooCommerce CSS неблокуючими (async load)
 function make_wc_styles_async($html, $handle) {
     $async_styles = ['woocommerce-layout', 'woocommerce-general', 'woocommerce-smallscreen'];
-    if (in_array($handle, $async_styles)) {
+    if (in_array($handle, $async_styles) || strpos($handle, 'wc-blocks') === 0) {
         return str_replace("rel='stylesheet'", "rel='preload' as='style' onload=\"this.onload=null;this.rel='stylesheet'\"", $html);
     }
     return $html;
@@ -343,4 +343,101 @@ function add_gtag_head() { ?>
 	})(window,document,'script','dataLayer','GTM-MKW9MMR');</script>
 <?php }
 add_action( 'wp_head', 'add_gtag_head' );
+
+// dataLayer: purchase event on thank you page
+function mp_datalayer_purchase_event( $order_id ) {
+    $order = wc_get_order( $order_id );
+    if ( ! $order ) {
+        return;
+    }
+
+    // Prevent duplicate tracking on page refresh
+    if ( $order->get_meta( '_gtm_purchase_tracked' ) ) {
+        return;
+    }
+    $order->update_meta_data( '_gtm_purchase_tracked', true );
+    $order->save();
+
+    $items = array();
+    foreach ( $order->get_items() as $item ) {
+        $product = $item->get_product();
+        if ( ! $product ) {
+            continue;
+        }
+
+        // SKU as item_id, fallback to product ID
+        $sku = $product->get_sku();
+        $item_id = ! empty( $sku ) ? $sku : (string) $product->get_id();
+
+        // Highest category
+        $category_name = '';
+        $terms = get_the_terms( $product->get_id(), 'product_cat' );
+        if ( $terms && ! is_wp_error( $terms ) ) {
+            // Get top-level category (parent = 0), fallback to first
+            $top = null;
+            foreach ( $terms as $term ) {
+                if ( $term->parent === 0 ) {
+                    $top = $term;
+                    break;
+                }
+            }
+            $category_name = $top ? $top->name : $terms[0]->name;
+        }
+
+        // Brand (from pa_brand or product_brand taxonomy)
+        $brand = '';
+        $brand_terms = get_the_terms( $product->get_id(), 'product_brand' );
+        if ( ! $brand_terms || is_wp_error( $brand_terms ) ) {
+            $brand_terms = get_the_terms( $product->get_id(), 'pa_brand' );
+        }
+        if ( $brand_terms && ! is_wp_error( $brand_terms ) ) {
+            $brand = $brand_terms[0]->name;
+        }
+
+        $item_data = array(
+            'item_id'       => $item_id,
+            'item_name'     => $item->get_name(),
+            'price'         => (float) $order->get_item_total( $item, false ),
+            'currency'      => $order->get_currency(),
+            'quantity'      => $item->get_quantity(),
+        );
+
+        if ( $category_name ) {
+            $item_data['item_category'] = $category_name;
+        }
+        if ( $brand ) {
+            $item_data['item_brand'] = $brand;
+        }
+
+        $items[] = $item_data;
+    }
+
+    $coupons = $order->get_coupon_codes();
+    $coupon_string = ! empty( $coupons ) ? implode( ', ', $coupons ) : '';
+
+    $ecommerce = array(
+        'transaction_id' => (string) $order->get_order_number(),
+        'currency'       => $order->get_currency(),
+        'value'          => (float) $order->get_total(),
+        'shipping'       => (float) $order->get_shipping_total(),
+        'tax'            => (float) $order->get_total_tax(),
+        'items'          => $items,
+    );
+
+    if ( $coupon_string ) {
+        $ecommerce['coupon'] = $coupon_string;
+    }
+
+    ?>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({ 'ecommerce': null });
+      dataLayer.push({
+        'event': 'purchase',
+        'ecommerce': <?php echo wp_json_encode( $ecommerce, JSON_UNESCAPED_UNICODE ); ?>
+      });
+    </script>
+    <?php
+}
+add_action( 'woocommerce_thankyou', 'mp_datalayer_purchase_event', 5, 1 );
 
