@@ -40,6 +40,24 @@ p {
   margin-bottom: 1rem;
 }
 
+main {
+  ul,
+  ol {
+    padding-left: 4rem;
+  }
+
+  ul {
+    li {
+      list-style: disc;
+    }
+  }
+  ol {
+    li {
+      list-style: decimal;
+    }
+  }
+}
+
 .main-wrapper {
   flex: 1;
   padding: 1.8rem 0 3rem;
